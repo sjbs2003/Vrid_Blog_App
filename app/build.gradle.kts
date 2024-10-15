@@ -71,7 +71,6 @@ dependencies {
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-
     //Coil
     implementation(libs.coil.compose)
 
@@ -86,6 +85,6 @@ dependencies {
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.androidx.lifecycle.livedata.ktx)
 
-    //Gson
-    implementation(libs.converter.gson)
+    //Navigation
+    implementation(libs.androidx.navigation.compose)
 }
