@@ -152,12 +152,3 @@ data class Cury(
     val href: String,
     val templated: Boolean
 )
-
-@Serializable
-data class BlogItemUiModel(
-    val title: String,
-    val imageUrl: String,
-    val date: String,
-    val content: String,
-    val excerpt: String
-)
