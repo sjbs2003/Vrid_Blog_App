@@ -114,34 +114,51 @@ fun BlogCard(
             .fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
-        Column(modifier = modifier.padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = blogData.title,
-                    style = MaterialTheme.typography.titleMedium
-                )
-            }
-            Spacer(modifier = modifier.height(8.dp))
+        Column(
+            modifier = modifier.padding(16.dp)
+        ) {
+            // Displaying the image at the top
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data(blogData.imageUrl)
                     .crossfade(true)
                     .build(),
-                error = painterResource(R.drawable.ic_broken_image),
-                placeholder = painterResource(R.drawable.loading_img),
+                error = painterResource(R.drawable.ic_broken_image), // Placeholder for broken image
+                placeholder = painterResource(R.drawable.loading_img), // Placeholder for loading image
                 contentDescription = stringResource(R.string.blog_photo),
                 contentScale = ContentScale.Crop,
-                modifier = modifier.fillMaxWidth()
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(200.dp) // Adjust the height as needed
             )
+            Spacer(modifier = Modifier.height(8.dp)) // Spacing between image and title
+
+            // Displaying the title under the image
+            Text(
+                text = blogData.title,
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(bottom = 4.dp) // Space below the title
+            )
+
+            // Displaying the date and time under the title
+            Text(
+                text = blogData.date,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant, // Adjust color as needed
+                modifier = Modifier.padding(bottom = 8.dp) // Space below the date
+            )
+
+            // Displaying the excerpt/content at the bottom
             Text(
                 text = blogData.excerpt,
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Justify,
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(top = 8.dp) // Space above the excerpt
             )
         }
     }
 }
+
 
 
 @Preview(showBackground = true)
