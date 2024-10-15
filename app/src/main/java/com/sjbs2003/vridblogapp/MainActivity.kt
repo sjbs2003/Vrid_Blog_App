@@ -9,7 +9,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.sjbs2003.vridblogapp.ui.BlogApp
-import com.sjbs2003.vridblogapp.ui.HomeScreen
 import com.sjbs2003.vridblogapp.ui.theme.VridBlogAppTheme
 
 class MainActivity : ComponentActivity() {
