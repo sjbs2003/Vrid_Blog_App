@@ -25,7 +25,7 @@ enum class BlogScreen(val route: String){
 }
 @Composable
 fun BlogApp(
-    blogViewModel: BlogViewModel = viewModel()
+    blogViewModel: BlogViewModel = viewModel(factory = BlogViewModel.factory)
 ) {
     val navController = rememberNavController()
 
