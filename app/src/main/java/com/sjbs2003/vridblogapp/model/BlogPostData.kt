@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
 
 @Serializable
-data class BlogPost(
+data class BlogPostData(
     val id: Int,
     val date: String,
     @SerialName("date_gmt") val dateGmt: String,

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Vrid Blog App</string>
+    <string name="failed_to_load">Failed to load</string>
+    <string name="retry">Retry</string>
+    <string name="loading">Loading</string>
+    <string name="blog_photo">Blog Photo</string>
 </resources>
