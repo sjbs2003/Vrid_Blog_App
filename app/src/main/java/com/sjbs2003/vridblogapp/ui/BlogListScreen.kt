@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -64,6 +65,7 @@ fun BlogListScreen(
 
             is BlogViewModel.BlogUiState.Error -> ErrorScreen(
                 message = state.message,
+                onRetry = { viewModel.fetchBlogPosts() },
                 modifier = Modifier.padding(innerpadding)
             )
         }
@@ -81,12 +83,19 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun ErrorScreen(message: String, modifier: Modifier = Modifier) {
+fun ErrorScreen(
+    message: String,
+    onRetry: () -> Unit,
+    modifier: Modifier = Modifier) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier.fillMaxSize()
     ) {
         Text(text = message, color = MaterialTheme.colorScheme.error)
+        Spacer(modifier = modifier.height(16.dp))
+        Button(onClick = onRetry) {
+            Text("Retry")
+        }
     }
 }
 
@@ -108,7 +117,10 @@ fun BlogList(
 }
 
 @Composable
-fun BlogCard(blog: BlogPostData, onClick: () -> Unit) {
+fun BlogCard(
+    blog: BlogPostData,
+    onClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

@@ -1,8 +1,5 @@
 package com.sjbs2003.vridblogapp.viewModel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -40,7 +37,7 @@ class BlogViewModel(private val repository: BlogRepository) : ViewModel() {
     }
 
     sealed class BlogUiState {
-        object Loading : BlogUiState()
+        data object Loading : BlogUiState()
         data class Success(val blogPosts: List<BlogPostData>) : BlogUiState()
         data class Error(val message: String) : BlogUiState()
     }
