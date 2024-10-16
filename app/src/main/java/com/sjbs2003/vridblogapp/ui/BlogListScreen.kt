@@ -27,9 +27,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.sjbs2003.vridblogapp.R
 import com.sjbs2003.vridblogapp.model.BlogPostData
 import com.sjbs2003.vridblogapp.viewModel.BlogViewModel
@@ -127,6 +132,23 @@ fun BlogCard(
             .clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
+        Column {
+            blog.featuredImageUrl?.let { imageUrl ->
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(imageUrl)
+                        .crossfade(true)
+                        .build(),
+                    error = painterResource(R.drawable.ic_broken_image),
+                    placeholder = painterResource(R.drawable.loading_img),
+                    contentDescription = "Featured image for ${blog.title.rendered}",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                )
+            }
+        }
         Column(
             modifier = Modifier.padding(16.dp)
         ) {

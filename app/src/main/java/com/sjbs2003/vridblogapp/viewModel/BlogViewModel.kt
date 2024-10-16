@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-
 class BlogViewModel(private val repository: BlogRepository) : ViewModel() {
 
     private val _uiState = MutableStateFlow<BlogUiState>(BlogUiState.Loading)
@@ -41,7 +40,6 @@ class BlogViewModel(private val repository: BlogRepository) : ViewModel() {
         data class Success(val blogPosts: List<BlogPostData>) : BlogUiState()
         data class Error(val message: String) : BlogUiState()
     }
-
 
     companion object {
         fun factory(
