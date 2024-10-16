@@ -132,7 +132,9 @@ fun BlogCard(
             .clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Column {
+        Column(
+            modifier = Modifier.padding(16.dp)
+        ) {
             blog.featuredImageUrl?.let { imageUrl ->
                 AsyncImage(
                     model = ImageRequest.Builder(context = LocalContext.current)
@@ -148,21 +150,10 @@ fun BlogCard(
                         .height(200.dp)
                 )
             }
-        }
-        Column(
-            modifier = Modifier.padding(16.dp)
-        ) {
             Text(
                 text = blog.title.rendered,
                 style = MaterialTheme.typography.headlineSmall,
                 maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = blog.excerpt.rendered,
-                style = MaterialTheme.typography.bodyMedium,
-                maxLines = 3,
                 overflow = TextOverflow.Ellipsis
             )
             Spacer(modifier = Modifier.height(8.dp))

@@ -95,5 +95,6 @@ dependencies {
     // Gson
     implementation(libs.converter.gson)
 
-
+    //jSoup
+    implementation(libs.jsoup)
 }

@@ -2,6 +2,7 @@ package com.sjbs2003.vridblogapp.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -20,10 +21,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.sjbs2003.vridblogapp.R
 import com.sjbs2003.vridblogapp.model.BlogPostData
 import com.sjbs2003.vridblogapp.viewModel.BlogViewModel
+import com.sjbs2003.vridblogapp.data.HtmlParserUtil
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,6 +83,8 @@ fun BlogDetailScreen(
 
 @Composable
 fun BlogDetailContent(blog: BlogPostData, modifier: Modifier = Modifier) {
+    val parsedContent = HtmlParserUtil.parseHtml(blog.content.rendered)
+
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
@@ -90,8 +100,27 @@ fun BlogDetailContent(blog: BlogPostData, modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodySmall
         )
         Spacer(modifier = Modifier.height(16.dp))
+
+        // Featured Image
+        blog.featuredImageUrl?.let { imageUrl ->
+            AsyncImage(
+                model = ImageRequest.Builder(context = LocalContext.current)
+                    .data(imageUrl)
+                    .crossfade(true)
+                    .build(),
+                error = painterResource(R.drawable.ic_broken_image),
+                placeholder = painterResource(R.drawable.loading_img),
+                contentDescription = "Featured image for ${blog.title.rendered}",
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+
         Text(
-            text = blog.content.rendered,
+            text = parsedContent,
             style = MaterialTheme.typography.bodyLarge
         )
         Spacer(modifier = Modifier.height(16.dp))

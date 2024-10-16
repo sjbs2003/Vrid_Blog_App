@@ -4,6 +4,7 @@ agp = "8.6.0"
 coilCompose = "2.6.0"
 coilComposeVersion = "2.4.0"
 converterGson = "2.9.0"
+jsoupVersion = "1.14.3"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -30,6 +31,7 @@ coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose"
 coil-compose-v240 = { module = "io.coil-kt:coil-compose", version.ref = "coilComposeVersion" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 google-accompanist-swiperefresh = { module = "com.google.accompanist:accompanist-swiperefresh", version.ref = "accompanistSwiperefreshVersion" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoupVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
