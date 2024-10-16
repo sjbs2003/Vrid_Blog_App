@@ -168,4 +168,3 @@ data class BlogPostData(
     )
 
 }
-

@@ -45,7 +45,7 @@ fun BlogDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(text = "Blog Details", maxLines = 1, overflow = TextOverflow.Ellipsis) },
+                title = { Text(text = "Blog", maxLines = 1, overflow = TextOverflow.Ellipsis) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
