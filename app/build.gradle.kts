@@ -87,4 +87,12 @@ dependencies {
 
     //Navigation
     implementation(libs.androidx.navigation.compose)
+
+    // HttpLoggingInterceptor
+    implementation(libs.logging.interceptor)
+
+    // Gson
+    implementation(libs.converter.gson)
+
+
 }

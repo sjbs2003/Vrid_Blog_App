@@ -15,13 +15,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val blogApplication = applicationContext as BlogApplication
         setContent {
             VridBlogAppTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BlogApp()
+                    BlogApp(blogRepository = blogApplication.container.blogRepository)
                 }
             }
         }

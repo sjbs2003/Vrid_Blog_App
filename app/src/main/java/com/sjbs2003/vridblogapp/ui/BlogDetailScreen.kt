@@ -17,17 +17,23 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.sjbs2003.vridblogapp.model.BlogPostData
+import com.sjbs2003.vridblogapp.viewModel.BlogViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BlogDetailScreen(
-    blog: BlogPostData,
+    blogId: Int,
+    viewModel: BlogViewModel,
     onBackClick: () -> Unit
 ) {
+    val uiState by viewModel.uiState.collectAsState()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -44,41 +50,64 @@ fun BlogDetailScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp)
-        ) {
-            Text(
-                text = blog.title.rendered,
-                style = MaterialTheme.typography.headlineMedium
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Published on: ${blog.date}",
-                style = MaterialTheme.typography.bodySmall
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = blog.content.rendered,
-                style = MaterialTheme.typography.bodyLarge
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Categories: ${blog.categories.joinToString(", ")}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = "Tags: ${blog.tags.joinToString(", ")}",
-                style = MaterialTheme.typography.bodyMedium
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = "Author ID: ${blog.author}",
-                style = MaterialTheme.typography.bodyMedium
+        when (val state = uiState) {
+            is BlogViewModel.BlogUiState.Loading -> LoadingScreen(modifier = Modifier.padding(innerPadding))
+            is BlogViewModel.BlogUiState.Success -> {
+                val blog = state.blogPosts.find { it.id == blogId }
+                if (blog != null) {
+                    BlogDetailContent(blog = blog, modifier = Modifier.padding(innerPadding))
+                } else {
+                    ErrorScreen(
+                        message = "Blog not found",
+                        onRetry = { viewModel.fetchBlogPosts() },
+                        modifier = Modifier.padding(innerPadding)
+                    )
+                }
+            }
+            is BlogViewModel.BlogUiState.Error -> ErrorScreen(
+                message = state.message,
+                onRetry = { viewModel.fetchBlogPosts() },
+                modifier = Modifier.padding(innerPadding)
             )
         }
+    }
+}
+
+@Composable
+fun BlogDetailContent(blog: BlogPostData, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .verticalScroll(rememberScrollState())
+            .padding(16.dp)
+    ) {
+        Text(
+            text = blog.title.rendered,
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Published on: ${blog.date}",
+            style = MaterialTheme.typography.bodySmall
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = blog.content.rendered,
+            style = MaterialTheme.typography.bodyLarge
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Categories: ${blog.categories.joinToString(", ")}",
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = "Tags: ${blog.tags.joinToString(", ")}",
+            style = MaterialTheme.typography.bodyMedium
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "Author ID: ${blog.author}",
+            style = MaterialTheme.typography.bodyMedium
+        )
     }
 }
