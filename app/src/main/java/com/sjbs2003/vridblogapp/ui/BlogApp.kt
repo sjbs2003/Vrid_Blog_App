@@ -13,14 +13,7 @@ import com.sjbs2003.vridblogapp.viewModel.BlogViewModel
 
 enum class BlogScreen(val route: String){
     BlogList("blogList"),
-    BlogDetail("blogDetail/{blogId}");
-
-    fun createRoute(blogId: Int? = null): String {
-        return when (this) {
-            BlogList -> route
-            BlogDetail -> route.replace("{blogId}", blogId.toString())
-        }
-    }
+    BlogDetail("blogDetail/{blogId}")
 }
 @Composable
 fun BlogApp(blogRepository: BlogRepository) {
@@ -35,7 +28,7 @@ fun BlogApp(blogRepository: BlogRepository) {
             BlogListScreen(
                 viewModel = blogViewModel,
                 onBlogClick = { blogId ->
-                    navController.navigate(BlogScreen.BlogDetail.createRoute(blogId))
+                    navController.navigate(BlogScreen.BlogDetail.route.replace("{blogId}", blogId.toString()))
                 }
             )
         }

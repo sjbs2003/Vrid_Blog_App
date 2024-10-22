@@ -14,6 +14,7 @@ class DefaultContainer : AppContainer {
 
     private val baseurl = "https://blog.vrid.in/"
 
+    //  includes logging for debugging purposes (HttpLoggingInterceptor)
     private val logging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
